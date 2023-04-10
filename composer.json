@@ -1,0 +1,21 @@
+{
+  "name": "jiker/simple-export",
+  "description": "A simple export package for PHP",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "jikerdev",
+      "email": "jiker.dev@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.2",
+    "phpoffice/phpspreadsheet": "^1.19"
+  },
+  "autoload": {
+    "psr-4": {
+      "My\\Package\\": "src/"
+    }
+  }
+}
