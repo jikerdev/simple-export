@@ -1,8 +1,8 @@
 <?php
 
-namespace Jiker\SimpleExport\Export;
+namespace Jikerdev\SimpleExport\Export;
 
-use Jiker\SimpleExport\Exception\FileNotGeneratedException;
+use Jikerdev\SimpleExport\Exception\FileNotGeneratedException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 

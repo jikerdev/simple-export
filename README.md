@@ -7,7 +7,7 @@
 使用 Composer 安装：
 
 ```bash
-composer require jiker/simple-export
+composer require jikerdev/simple-export
 ```
 
 在需要使用 Excel 导出的地方引入它：

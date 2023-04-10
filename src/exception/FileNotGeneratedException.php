@@ -1,6 +1,6 @@
 <?php
 
-namespace Jiker\SimpleExport\Exception;
+namespace Jikerdev\SimpleExport\Exception;
 
 class FileNotGeneratedException extends \Exception
 {
