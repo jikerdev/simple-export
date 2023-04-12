@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Jikerdev\SimpleExport\Export;
 
 use Jikerdev\SimpleExport\Exception\FileNotGeneratedException;
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -15,25 +16,37 @@ class ExcelExport
     protected $format;
     protected $title;
     protected $tabName;
+    protected $headers;
 
+    /**
+     * ExcelExport constructor.
+     * @param string $fileName default my_excel
+     * @param string $format support Xlsx, Xls
+     * @param string $title default my_sheet
+     * @param string $tabName default Sheet1
+     * @param array $headers default []
+     * @throws Exception
+     */
     public function __construct(
         string $fileName = 'my_excel',
-        string $format = 'xlsx',
+        string $format = 'Xlsx',
         string $title = 'my_sheet',
-        string $tabName = 'Sheet1'
+        string $tabName = 'Sheet1',
+        array  $headers = []
     )
     {
         $this->fileName = $fileName;
         $this->format = $format;
         $this->title = $title;
         $this->tabName = $tabName;
+        $this->headers = $headers;
         $this->spreadsheet = $this->createSpreadsheet();
     }
 
     /**
      * Create a new instance of the PhpSpreadsheet object for each sheet on the spreadsheet
-     *
      * @return Spreadsheet
+     * @throws Exception
      */
     protected function createSpreadsheet(): Spreadsheet
     {
@@ -82,6 +95,7 @@ class ExcelExport
      *
      * @param string $tabName
      * @return void
+     * @throws Exception
      */
     public function setTabName(string $tabName): void
     {
@@ -90,14 +104,27 @@ class ExcelExport
     }
 
     /**
+     * Set the headers of the spreadsheet
+     *
+     * @param array $headers
+     * @return void
+     * @throws Exception
+     */
+    public function setHeaders(array $headers): void
+    {
+        $this->headers = $headers;
+        $this->spreadsheet->getActiveSheet()->fromArray($headers, null, 'A1');
+    }
+
+    /**
      * Append data to the spreadsheet
      *
-     * @param array $data
+     * @param array $items
      * @return void
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function appendData(array $data): void
+    public function appendData(array $items): void
     {
         $sheet = $this->spreadsheet->getActiveSheet();
 
@@ -105,8 +132,8 @@ class ExcelExport
         $lastRow = $sheet->getHighestRow();
 
         // Write new data to the spreadsheet
-        foreach ($data as $rowData) {
-            $colNum = 0;
+        foreach ($items as $rowData) {
+            $colNum = 1;
             foreach ($rowData as $cellData) {
                 $sheet->setCellValueByColumnAndRow($colNum++, $lastRow + 1, $cellData);
             }
@@ -133,8 +160,8 @@ class ExcelExport
         }
 
         $mime = [
-            'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'xls' => 'application/vnd.ms-excel'
+            'Xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Xls' => 'application/vnd.ms-excel'
         ][$this->format];
 
         header('Content-Type: ' . $mime);

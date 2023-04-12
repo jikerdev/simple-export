@@ -22,11 +22,13 @@ use Jiker\SimpleExport\ExcelExport;
 
 ```php
 // 创建导出器
-$exporter = new ExcelExport('data', 'xlsx');
+$exporter = new ExcelExport('data', 'Xlsx');
+
+// 设置表头
+$exporter->setHeader(['姓名', '年龄', '性别']);
 
 // 添加数据到导出器
 $data = [
-    ['姓名', '年龄', '性别'],
     ['Tom', 20, '男'],
     ['Lucy', 18, '女'],
     ['Jack', 22, '男']
@@ -46,10 +48,10 @@ $exporter->download();
 $exporter = new ExcelExport('students', 'xlsx');
 $exporter->setTitle('学生信息表');
 $exporter->setTabName('成绩信息');
+$exporter->setHeader(['姓名', '语文', '数学', '英语']);
 
 // 添加数据到导出器
 $data = [
-    ['姓名', '语文', '数学', '英语'],
     ['Tom', 85, 90, 93],
     ['Lucy', 94, 88, 91],
     ['Jack', 80, 72, 85]
