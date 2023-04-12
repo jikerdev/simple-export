@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Jikerdev\SimpleExport\Export;
 
@@ -15,7 +16,12 @@ class ExcelExport
     protected $title;
     protected $tabName;
 
-    public function __construct($fileName = null, $format = 'xlsx', $title = 'My Excel Sheet', $tabName = 'Sheet1')
+    public function __construct(
+        string $fileName = 'my_excel',
+        string $format = 'xlsx',
+        string $title = 'my_sheet',
+        string $tabName = 'Sheet1'
+    )
     {
         $this->fileName = $fileName;
         $this->format = $format;
@@ -44,7 +50,7 @@ class ExcelExport
      * @param string $fileName
      * @return void
      */
-    public function setFileName(string $fileName)
+    public function setFileName(string $fileName): void
     {
         $this->fileName = $fileName;
     }
@@ -55,7 +61,7 @@ class ExcelExport
      * @param string $format
      * @return void
      */
-    public function setFormat(string $format)
+    public function setFormat(string $format): void
     {
         $this->format = $format;
     }
@@ -66,7 +72,7 @@ class ExcelExport
      * @param string $title
      * @return void
      */
-    public function setTitle(string $title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -77,7 +83,7 @@ class ExcelExport
      * @param string $tabName
      * @return void
      */
-    public function setTabName(string $tabName)
+    public function setTabName(string $tabName): void
     {
         $this->tabName = $tabName;
         $this->spreadsheet->getActiveSheet()->setTitle($tabName);
@@ -91,7 +97,7 @@ class ExcelExport
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function appendData(array $data)
+    public function appendData(array $data): void
     {
         $sheet = $this->spreadsheet->getActiveSheet();
 
@@ -118,7 +124,7 @@ class ExcelExport
      * @return void
      * @throws FileNotGeneratedException
      */
-    public function download()
+    public function download(): void
     {
         $file = $this->fileName . '.' . $this->format;
 
