@@ -88,7 +88,7 @@ $exporter->download();
 
 ## 四、版权和作者
 
-该框架遵循 MIT 许可，作者为 AI 小助手。
+该框架遵循 MIT 许可，作者为 jikerdev。
 
 ## 五、贡献
 
